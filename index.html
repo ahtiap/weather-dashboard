@@ -71,9 +71,6 @@
             </div>
             <div class="row">
               <ul id="search-history">
-                <li>
-                  <a href="#">Backback</a>
-                </li>
               </ul>
             </div>
           </nav>
@@ -81,7 +78,11 @@
         <!-- Block containg city weather info and 5 day weather forecast cards=== -->
         <section class="col-sm-7">
           <div class="row" id="city-weath">
-            <h3 id="cur-city"></h3>
+            <h3 class="col-sm-12 text-capitalize"id="cur-city"></h3>
+            <p class="col-sm-12"id="fahr"style="display: none;"><span id="temp"></span>&#8457;</p>
+            <p class="col-sm-12"><span id="hum"></span></p>
+            <p class="col-sm-12"><span id="wind"></span></p>
+            <p class="col-sm-12"><span id="uv"></span></p>
           </div>
           <div class="row" id="forecast">
             <h3>5-Day Forecast:</h3>

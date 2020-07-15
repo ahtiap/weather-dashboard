@@ -5,9 +5,15 @@ var searchHist = $("#search-history");
 var cityWeath = $("#city-weath");
 var cityFor = $("#forecast");
 var curCity = $("#cur-city");
+var tempEl = $("#temp");
+var humEl = $("#hum");
+var windEl = $("#wind");
+var uvEl = $("#uv");
+var fahr = $("#fahr");
 var APIKey = "b266c5e020d19bbcc629087e8167fb6c";
 var curDate = moment(new Date());
 curDate.format("dddd, MMMM DD.");
+
 // GIVEN a weather dashboard with form inputs
 // WHEN I search for a city
 searchBtn.click(function (e) {
@@ -34,17 +40,42 @@ searchBtn.click(function (e) {
       // add date and current city and cloud icon
       var icon;
       curCity.text(currentCity + "(" + curDate.format("MM/DD/YYYY") + ")");
-
-      var currentTemp;
+      // add temperature=========================================
+      var currentTemp = (((response.main.temp - 273.15) * 9) / 5 + 32).toFixed(
+        1
+      );
+      tempEl.text("Temperature: " + currentTemp);
+      fahr.css("display", "block");
+      // display humidity
       var hum;
-      var wind;
-      var uvIndex;
+      hum = response.main.humidity;
+      humEl.text("Humidity: " + hum + "%");
+      // display wind speed
+      var wind = response.wind.speed.toFixed(1);
+      windEl.text("Wind speed: " + wind + " MPH");
+      var latitude = response.coord.lat;
+      var longitude = response.coord.lon;
+      var uvURL =
+        "http://api.openweathermap.org/data/2.5/uvi?appid=" +
+        APIKey +
+        "&lat=" +
+        latitude +
+        "&lon=" +
+        longitude;
+      //console.log("uvURL:", uvURL);
+      $.ajax({
+        url: uvURL,
+        method: "GET",
+      }).then(function (uvRes) {
+          console.log(uvRes);
+          var uvIndex = uvRes.value;
+          uvEl.text("UV Index: " + uvIndex);
+      });
+      
       // WHEN I view current weather conditions for that city
       // THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-
       // get the temperature and display it
       console.log(response);
-      currentTemp = (((response.main.temp - 273.15) * 9) / 5 + 32).toFixed(1);
     });
   }
 
