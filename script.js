@@ -37,6 +37,9 @@ searchBtn.click(function (e) {
       url: queryURL,
       method: "GET",
     }).then(function (response) {
+      // WHEN I view current weather conditions for that city
+      // THEN I am presented with the city name, the date, an icon representation of weather
+      // conditions, the temperature, the humidity, the wind speed, and the UV index
       // add date and current city and cloud icon
       var icon;
       curCity.text(currentCity + "(" + curDate.format("MM/DD/YYYY") + ")");
@@ -50,9 +53,10 @@ searchBtn.click(function (e) {
       var hum;
       hum = response.main.humidity;
       humEl.text("Humidity: " + hum + "%");
-      // display wind speed
+      // display wind speed=========================
       var wind = response.wind.speed.toFixed(1);
       windEl.text("Wind speed: " + wind + " MPH");
+      // get the uv index from its own api and display it
       var latitude = response.coord.lat;
       var longitude = response.coord.lon;
       var uvURL =
@@ -67,20 +71,24 @@ searchBtn.click(function (e) {
         url: uvURL,
         method: "GET",
       }).then(function (uvRes) {
-          console.log(uvRes);
+        // WHEN I view the UV index
+   
           var uvIndex = uvRes.value;
-          uvEl.text("UV Index: " + uvIndex);
+           // THEN I am presented with a color that indicates whether the conditions are 
+    // favorable, moderate, or severe
+          if (uvIndex<5) {
+              uvEl.css("background-color","green")
+          } else if(uvIndex>5&&uvIndex<7.5) {
+            uvEl.css("background-color","orange")
+          } else {
+              uvEl.css("background-color", "red");
+          }
+        uvEl.text("UV Index: " + uvIndex);
       });
-      
-      // WHEN I view current weather conditions for that city
-      // THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-      // get the temperature and display it
-      console.log(response);
     });
   }
 
-  // WHEN I view the UV index
-  // THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
+  
   // WHEN I view future weather conditions for that city
   // THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
   // WHEN I click on a city in the search history
