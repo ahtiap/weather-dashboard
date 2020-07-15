@@ -10,9 +10,8 @@ var humEl = $("#hum");
 var windEl = $("#wind");
 var uvEl = $("#uv");
 var fahr = $("#fahr");
-var APIKey = "b266c5e020d19bbcc629087e8167fb6c";
+var APIKey = "ca5f43cc4601dca5509d6c78b604147e";
 var curDate = moment(new Date());
-curDate.format("dddd, MMMM DD.");
 
 // GIVEN a weather dashboard with form inputs
 // WHEN I search for a city
@@ -72,23 +71,46 @@ searchBtn.click(function (e) {
         method: "GET",
       }).then(function (uvRes) {
         // WHEN I view the UV index
-   
-          var uvIndex = uvRes.value;
-           // THEN I am presented with a color that indicates whether the conditions are 
-    // favorable, moderate, or severe
-          if (uvIndex<5) {
-              uvEl.css("background-color","green")
-          } else if(uvIndex>5&&uvIndex<7.5) {
-            uvEl.css("background-color","orange")
-          } else {
-              uvEl.css("background-color", "red");
-          }
+
+        var uvIndex = uvRes.value;
+        // THEN I am presented with a color that indicates whether the conditions are
+        // favorable, moderate, or severe
+        if (uvIndex < 5) {
+          uvEl.css("background-color", "green");
+        } else if (uvIndex > 5 && uvIndex < 7.5) {
+          uvEl.css("background-color", "orange");
+        } else {
+          uvEl.css("background-color", "red");
+        }
         uvEl.text("UV Index: " + uvIndex);
+      });
+      var castURL =
+        "http://api.openweathermap.org/data/2.5/forecast?q=london&appid=" +
+        APIKey;
+      console.log("castURL:", castURL);
+      $.ajax({
+        url: castURL,
+        method: "GET",
+      }).then(function (castRes) {
+        // WHEN I view the UV index
+        console.log(castRes);
+        var castArr = castRes.list;
+        console.log(castArr);
+        var index = 1;
+        for (let i = 0; i < castArr.length; i=i+8) {
+          
+          var listEl = castArr[i];
+        
+          var castDate = moment(listEl.dt_txt);
+            $("#card-date" + index).text(castDate.format("MM/DD/YYYY"));
+            $("#card-temp" + index).text("Temperature: "+listEl.main.temp);
+            $("#card-hum" + index).text("Humidity: "+listEl.main.humidity+"%");
+          index++;
+        }
       });
     });
   }
 
-  
   // WHEN I view future weather conditions for that city
   // THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
   // WHEN I click on a city in the search history
