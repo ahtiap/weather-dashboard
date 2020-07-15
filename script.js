@@ -16,6 +16,7 @@ var curDate = moment(new Date());
 // GIVEN a weather dashboard with form inputs
 // WHEN I search for a city
 searchBtn.click(function (e) {
+    e.preventDefault();
   // THEN I am presented with current and future conditions for that city and that city is added to the search history
   currentCity = city.val();
   if (!currentCity) {
