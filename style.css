@@ -37,3 +37,12 @@ form.example::after {
   clear: both;
   display: table;
 }
+ul li{
+list-style: none;
+border: solid 0.75px black;
+padding: 5px;
+text-transform: capitalize;
+}
+ul{
+  padding: 0px;
+}

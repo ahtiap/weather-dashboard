@@ -16,7 +16,7 @@ var curDate = moment(new Date());
 // GIVEN a weather dashboard with form inputs
 // WHEN I search for a city
 searchBtn.click(function (e) {
-    e.preventDefault();
+  e.preventDefault();
   // THEN I am presented with current and future conditions for that city and that city is added to the search history
   currentCity = city.val();
   if (!currentCity) {
@@ -41,6 +41,8 @@ searchBtn.click(function (e) {
       // THEN I am presented with the city name, the date, an icon representation of weather
       // conditions, the temperature, the humidity, the wind speed, and the UV index
       // add date and current city and cloud icon
+      cityWeath.css("display", "flex");
+      cityFor.css("display", "flex");
       var icon;
       curCity.text(currentCity + "(" + curDate.format("MM/DD/YYYY") + ")");
       // add temperature=========================================
@@ -86,7 +88,9 @@ searchBtn.click(function (e) {
         uvEl.text("UV Index: " + uvIndex);
       });
       var castURL =
-        "http://api.openweathermap.org/data/2.5/forecast?q=london&appid=" +
+        "http://api.openweathermap.org/data/2.5/forecast?q=" +
+        currentCity +
+        "&appid=" +
         APIKey;
       console.log("castURL:", castURL);
       $.ajax({
@@ -98,14 +102,24 @@ searchBtn.click(function (e) {
         var castArr = castRes.list;
         console.log(castArr);
         var index = 1;
-        for (let i = 0; i < castArr.length; i=i+8) {
-          
+        for (let i = 0; i < castArr.length; i = i + 8) {
           var listEl = castArr[i];
-        
+
           var castDate = moment(listEl.dt_txt);
-            $("#card-date" + index).text(castDate.format("MM/DD/YYYY"));
-            $("#card-temp" + index).text("Temperature: "+listEl.main.temp);
-            $("#card-hum" + index).text("Humidity: "+listEl.main.humidity+"%");
+          $("#card-date" + index).text(castDate.format("MM/DD/YYYY"));
+          $("#card-temp" + index).text(
+            "Temperature: " +
+              (((listEl.main.temp - 273.15) * 9) / 5 + 32).toFixed(1)
+          );
+          $("#card-hum" + index).text(
+            "Humidity: " + listEl.main.humidity + "%"
+          );
+
+          var iconcode = listEl.weather[0].icon;
+          console.log(iconcode);
+          var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+          $("#icon" + index).attr("src", iconurl);
+
           index++;
         }
       });

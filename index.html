@@ -49,9 +49,9 @@
       </header>
       <!-- Search bar and search history=================================== -->
       <article class="row">
-        <section class="col-sm-3">
+        <section class="col-sm-4">
           <nav class="navbar navbar-light bg-light">
-            <h3 class="col-12" >Search a city:</h3>
+            <h5 class="col-12">Search a city:</h5>
             <div class="row">
               <div class="col-12">
                 <form class="example">
@@ -66,16 +66,14 @@
               </div>
             </div>
 
-            
-              <div class="col-12">
-                <ul id="search-history"></ul>
-              
+            <div class="col-12" style="padding: 0px; margin-top: 20px;">
+              <ul id="search-history"></ul>
             </div>
           </nav>
         </section>
         <!-- Block containg city weather info and 5 day weather forecast cards=== -->
-        <section class="col-sm-9">
-          <div class="row" id="city-weath">
+        <section class="col-sm-8">
+          <div class="row" id="city-weath" style="display: none;">
             <h3 class="col-sm-12 text-capitalize" id="cur-city"></h3>
             <p class="col-sm-12" id="fahr" style="display: none;">
               <span id="temp"></span>&#8457;
@@ -84,55 +82,66 @@
             <p class="col-sm-12"><span id="wind"></span></p>
             <p class="col-sm-12"><span id="uv"></span></p>
           </div>
-          <div class="row" id="forecast">
+          <div class="row" id="forecast" style="display: none;">
             <h3 class="col-sm-12">5-Day Forecast:</h3>
             <div
-              class="col-sm-3 card text-white bg-primary mb-3"
+              class="col-sm-6 card text-white bg-primary mb-3"
               style="max-width: 18rem;"
             >
               <div class="card-header" id="card-date1">Header</div>
               <div class="card-body">
                 <p class="card-text" id="card-temp1"></p>
+                <p><img src="" id="icon1" alt="weather-icon" /></p>
                 <p class="card-text" id="card-hum1"></p>
               </div>
             </div>
             <div
-              class="col-sm-3 card text-white bg-primary mb-3"
+              class="col-sm-6 card text-white bg-primary mb-3"
               style="max-width: 18rem;"
             >
               <div class="card-header" id="card-date2">Header</div>
               <div class="card-body">
                 <p class="card-text" id="card-temp2"></p>
+                <p><img src="" id="icon2" alt="weather-icon" /></p>
                 <p class="card-text" id="card-hum2"></p>
               </div>
             </div>
             <div
-              class="col-sm-3 card text-white bg-primary mb-3"
+              class="col-sm-6 card text-white bg-primary mb-3"
               style="max-width: 18rem;"
             >
               <div class="card-header" id="card-date3">Header</div>
               <div class="card-body">
                 <p class="card-text" id="card-temp3"></p>
+                <p><img src="" id="icon3" alt="weather-icon" /></p>
                 <p class="card-text" id="card-hum3"></p>
               </div>
             </div>
             <div
-              class="col-sm-3 card text-white bg-primary mb-3"
+              class="col-sm-6 card text-white bg-primary mb-3"
               style="max-width: 18rem;"
             >
               <div class="card-header" id="card-date4">Header</div>
               <div class="card-body">
                 <p class="card-text" id="card-temp4"></p>
+                <p><img src="" id="icon4" alt="weather-icon" /></p>
                 <p class="card-text" id="card-hum4"></p>
               </div>
             </div>
             <div
-              class="col-sm-3 card text-white bg-primary mb-3"
+              class="col-sm-6 card text-white bg-primary mb-3"
               style="max-width: 18rem;"
             >
               <div class="card-header" id="card-date5">Header</div>
               <div class="card-body">
                 <p class="card-text" id="card-temp5"></p>
+                <p>
+                  <img
+                    src="http://openweathermap.org/img/w/02d.png"
+                    id="icon5"
+                    alt="weather-icon"
+                  />
+                </p>
                 <p class="card-text" id="card-hum5"></p>
               </div>
             </div>
